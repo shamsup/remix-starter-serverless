@@ -1,0 +1,38 @@
+{
+  "private": true,
+  "name": "remix-app-template",
+  "description": "Remix starter kit for the Serverless Framework",
+  "license": "MIT",
+  "scripts": {
+    "prebuild": "rimraf ./server/build ./public/static",
+    "build": "remix build",
+    "dev": "remix dev",
+    "postinstall": "remix setup node",
+    "predeploy": "npm run build",
+    "deploy": "sls deploy"
+  },
+  "dependencies": {
+    "@remix-run/architect": "^1.1.1",
+    "@remix-run/react": "^1.1.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "remix": "^1.1.1"
+  },
+  "devDependencies": {
+    "@remix-run/dev": "^1.1.1",
+    "@remix-run/serve": "^1.1.1",
+    "@types/react": "^17.0.24",
+    "@types/react-dom": "^17.0.9",
+    "aws-sdk": "^2.1048.0",
+    "esbuild": "^0.14.9",
+    "rimraf": "^3.0.2",
+    "serverless": "^2.70.0",
+    "serverless-esbuild": "^1.23.2",
+    "serverless-s3-sync": "^1.17.3",
+    "typescript": "^4.1.2"
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "sideEffects": false
+}
