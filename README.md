@@ -1,7 +1,7 @@
 # Welcome to Remix!
 
 - [Remix Docs](https://remix.run/docs)
-- [Serverless Docs]()
+- [Serverless Docs](https://www.serverless.com/framework/docs)
 
 This package is heavily inspired by Remix's Architect starter (`arc` deployment option in `npx create-remix`).
 
