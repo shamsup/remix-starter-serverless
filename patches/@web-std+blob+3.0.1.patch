@@ -1,0 +1,22 @@
+diff --git a/node_modules/@web-std/blob/tsconfig.json b/node_modules/@web-std/blob/tsconfig.json
+deleted file mode 100644
+index 2fc2e4e..0000000
+--- a/node_modules/@web-std/blob/tsconfig.json
++++ /dev/null
+@@ -1,16 +0,0 @@
+-{
+-  "extends": "../../tsconfig.json",
+-  "compilerOptions": {
+-    "outDir": "dist",
+-    "paths": {
+-      "@web-std/blob": ["packages/blob/src/lib.js"]
+-    }
+-  },
+-  "include": [
+-    "src",
+-    "test"
+-  ],
+-  "references": [
+-    { "path": "../fetch"}
+-  ]
+-}

@@ -1,0 +1,18 @@
+diff --git a/node_modules/@web-std/stream/tsconfig.json b/node_modules/@web-std/stream/tsconfig.json
+deleted file mode 100644
+index c80f2de..0000000
+--- a/node_modules/@web-std/stream/tsconfig.json
++++ /dev/null
+@@ -1,12 +0,0 @@
+-{
+-  "extends": "../../tsconfig.json",
+-  "compilerOptions": {
+-    "emitDeclarationOnly": false,
+-    "noEmit": true,
+-    "outDir": "dist"
+-  },
+-  "include": [
+-    "src",
+-    "test",
+-  ]
+-}

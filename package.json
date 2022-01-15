@@ -25,6 +25,7 @@
     "@types/react-dom": "^17.0.9",
     "aws-sdk": "^2.1048.0",
     "esbuild": "^0.14.9",
+    "patch-package": "^6.4.7",
     "rimraf": "^3.0.2",
     "serverless": "^2.70.0",
     "serverless-esbuild": "^1.23.2",
