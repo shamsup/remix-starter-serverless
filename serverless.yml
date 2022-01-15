@@ -10,6 +10,12 @@ plugins:
   - serverless-s3-sync
 
 custom:
+  # stage-specific variables
+  dev: 
+    HOST: my-cloudfront-domain.cloudfront.net # replace with the WebsiteDomain from stack outputs
+  prod:
+    HOST: my-domain.com # replace with your production url
+  # serverless-esbuild config, bundles your code and allows you to use typescript or es-next features in your handler code
   esbuild:
     bundle: true
     minify: false
@@ -20,6 +26,7 @@ custom:
     define:
       'require.resolve': null
     platform: 'node'
+  # serverless-s3-sync config, handles uploading static files to S3
   s3Sync:
     buckets:
       - bucketNameKey: WebsiteBucketName
@@ -63,7 +70,7 @@ resources:
       Type: AWS::S3::Bucket
       Properties: {}
     
-    # Allow Cloudfront to use GetObject in the WebsiteBucket
+    # Allow CloudFront to use GetObject in the WebsiteBucket
     WebsiteOriginAccessIdentity:
       Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
       Properties:
@@ -91,7 +98,7 @@ resources:
                     - WebsiteOriginAccessIdentity
                     - S3CanonicalUserId
     
-    # Use Cloudfront in front of the Remix API Gateway endpoint
+    # Use CloudFront in front of the Remix API Gateway endpoint
     RemixCachePolicy:
       Type: AWS::CloudFront::CachePolicy
       Properties:
@@ -109,7 +116,7 @@ resources:
             CookiesConfig:
               CookieBehavior: all
     
-    # Cloudfront Configuration
+    # CloudFront Configuration
     CDN:
       Type: AWS::CloudFront::Distribution
       DependsOn:
@@ -137,6 +144,10 @@ resources:
                   - - Ref: HttpApi
                     - '.execute-api.${self:provider.region}.amazonaws.com'
               Id: RemixOrigin
+              # UNCOMMENT THIS TO SET THE X-Forwarded-Host header for API Gateway
+              # OriginCustomHeaders:
+              #   - HeaderName: X-Forwarded-Host
+              #     HeaderValue: ${self:${self:provider.stage}.HOST}
               CustomOriginConfig:
                 OriginProtocolPolicy: https-only
                 OriginSSLProtocols: [TLSv1.2]
@@ -152,10 +163,8 @@ resources:
             AllowedMethods: [GET, HEAD, OPTIONS, PUT, PATCH, POST, DELETE]
             CachedMethods: [GET, HEAD, OPTIONS]
             Compress: true
-            ForwardedValues:
-              QueryString: true
-              Cookies:
-                Forward: all
+            CachePolicyId: 
+              Ref: RemixCachePolicy
             TargetOriginId: RemixOrigin
             ViewerProtocolPolicy: redirect-to-https
           # Requests to /static go to S3
